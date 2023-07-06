@@ -14,13 +14,15 @@ function App() {
     const [tasks, setTasks] = useState([])
 
     const addTasks = () => {
-        setTasks((prevState) => {
-            return [...prevState, task]
-        })
-        setTask({
-            id: uuid(),
-            title: '',
-        })
+        if (task.title) {
+            setTasks((prevState) => {
+                return [...prevState, task]
+            })
+            setTask({
+                id: uuid(),
+                title: '',
+            })
+        }
     }
 
     const deleteTasks = (id) => {
