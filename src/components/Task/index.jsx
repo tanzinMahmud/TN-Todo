@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import './style.css'
 
-const index = ({ details, deleteTasks, updateTasks }) => {
+import { TaskContext } from '../../context/Task'
+
+const index = ({ details }) => {
+    const { deleteTasks, updateTasks } = useContext(TaskContext)
+
     const deleteOneTask = (id) => {
         if (window.confirm('Are you sure?')) {
             deleteTasks(id)

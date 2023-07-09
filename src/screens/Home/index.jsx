@@ -1,24 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Row, Col, Form, InputGroup, Button, ListGroup } from 'react-bootstrap'
 
 import Task from '../../components/Task'
 
-const index = ({
-    task,
-    addTasks,
-    deleteTasks,
-    updateTasks,
-    updateTask,
-    tasks,
-}) => {
-    const updateInput = (value) => {
-        updateTask((prevState) => {
-            return {
-                ...prevState,
-                title: value,
-            }
-        })
-    }
+import { TaskContext } from '../../context/Task'
+
+const index = () => {
+    const { task, setTask, tasks, addTasks } = useContext(TaskContext)
 
     return (
         <>
@@ -26,7 +14,14 @@ const index = ({
                 <Col>
                     <InputGroup>
                         <Form.Control
-                            onChange={(e) => updateInput(e.target.value)}
+                            onChange={(e) =>
+                                setTask((prevState) => {
+                                    return {
+                                        ...prevState,
+                                        title: e.target.value,
+                                    }
+                                })
+                            }
                             placeholder='Task'
                             value={task.title}
                         />
@@ -49,8 +44,6 @@ const index = ({
                                         title: task.title,
                                         key,
                                     }}
-                                    deleteTasks={deleteTasks}
-                                    updateTasks={updateTasks}
                                 />
                             ))}
                         </ListGroup>
