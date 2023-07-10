@@ -1,12 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { Row, Col, Form, InputGroup, Button, ListGroup } from 'react-bootstrap'
+import { v4 as uuid } from 'uuid'
 
 import Task from '../../components/Task'
 
-import { TaskContext } from '../../context/Task'
+import { AppContext } from '../../store'
+import { addTask } from '../../actions/taskActions'
 
 const index = () => {
-    const { task, setTask, tasks, addTasks } = useContext(TaskContext)
+    const [task, setTask] = useState({
+        id: uuid(),
+        title: '',
+    })
+
+    const {
+        state: { tasks },
+        dispatch,
+    } = useContext(AppContext)
 
     return (
         <>
@@ -25,7 +35,16 @@ const index = () => {
                             placeholder='Task'
                             value={task.title}
                         />
-                        <Button variant='outline-secondary' onClick={addTasks}>
+                        <Button
+                            variant='outline-secondary'
+                            onClick={(e) => {
+                                addTask(dispatch, task)
+                                setTask({
+                                    id: uuid(),
+                                    title: '',
+                                })
+                            }}
+                        >
                             Add
                         </Button>
                     </InputGroup>

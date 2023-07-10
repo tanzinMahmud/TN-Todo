@@ -4,16 +4,16 @@ import { Container } from 'react-bootstrap'
 import Home from './screens/Home'
 import Navbar from './components/Nav'
 
-import { TaskProvider } from './context/Task'
+import { AppProvider } from './store'
 
 function App() {
     return (
-        <TaskProvider>
+        <AppProvider>
             <Navbar />
             <Container fluid='md' className='my-3'>
                 <Home />
             </Container>
-        </TaskProvider>
+        </AppProvider>
     )
 }
 

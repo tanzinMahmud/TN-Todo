@@ -5,21 +5,22 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import './style.css'
 
-import { TaskContext } from '../../context/Task'
+import { AppContext } from '../../store'
+import { updateTask, deleteTask } from '../../actions/taskActions'
 
 const index = ({ details }) => {
-    const { deleteTasks, updateTasks } = useContext(TaskContext)
-
-    const deleteOneTask = (id) => {
-        if (window.confirm('Are you sure?')) {
-            deleteTasks(id)
-        }
-    }
+    const { dispatch } = useContext(AppContext)
 
     const updateOneTask = (task) => {
         const inputValue = window.prompt(`Task: ${task.title}`)
         if (inputValue) {
-            updateTasks(task.id, inputValue)
+            updateTask(dispatch, { id: task.id, title: inputValue })
+        }
+    }
+
+    const deleteOneTask = (id) => {
+        if (window.confirm('Are you sure?')) {
+            deleteTask(dispatch, { id })
         }
     }
 
